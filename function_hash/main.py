@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
-initial_file = "initial_file.txt"
-modified_file = "modified_file.txt"
+initial_file = "function_hash/initial_file.txt"
+modified_file = "function_hash/modified_file.txt"
 
 
 def hashFunction(data: list[str]) -> bytes:
@@ -38,7 +38,8 @@ def validate_file(data: List[str], expected_digest: bytes) -> Tuple[bool, bytes]
     return (new_digest == expected_digest), new_digest
 
 
-def main() -> bytes:
+def main() -> None:
+
     original_data = file_to_lines(initial_file)
     original_digest = hashFunction(original_data)
 
