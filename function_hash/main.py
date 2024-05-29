@@ -1,10 +1,15 @@
 from typing import List, Tuple
 
-initial_file = "function_hash/initial_file.txt"
-modified_file = "function_hash/modified_file.txt"
+path_first_file_default = "./initial_file.txt"
+path_second_file_default = "./modified_file.txt"
+
+"""
+    Run the code with the command:
+    1 - python main.py
+"""
 
 
-def hashFunction(data: list[str]) -> bytes:
+def hash_function(data: list[str]) -> bytes:
     hash_state = 0x811C9DC5  # Estado inicial do hash
     prime_number = 104729  # Número primo para multiplicação
 
@@ -34,28 +39,32 @@ def file_to_lines(file_path: str) -> list[str]:
 
 
 def validate_file(data: List[str], expected_digest: bytes) -> Tuple[bool, bytes]:
-    new_digest = hashFunction(data)
+    new_digest = hash_function(data)
     return (new_digest == expected_digest), new_digest
 
 
-def main() -> None:
+def main(
+    path_first_file: str = path_first_file_default,
+    path_second_file: str = path_second_file_default,
+) -> None:
 
-    original_data = file_to_lines(initial_file)
-    original_digest = hashFunction(original_data)
+    list_first_content = file_to_lines(path_first_file)
+    initial_digest = hash_function(list_first_content)
 
-    print(f"Hash result of file {initial_file} is: {original_digest.hex()}\n")
+    print(f"Hash result of file {path_first_file} is: {initial_digest.hex()}\n")
 
-    modified_data = file_to_lines(modified_file)
-    has_valid, new_digest = validate_file(modified_data, original_digest)
+    # verify if the modified file is valid
+    list_second_content = file_to_lines(path_second_file)
+    has_valid, second_digest = validate_file(list_second_content, initial_digest)
 
     if not has_valid:
         print(
-            f"File {modified_file} is not valid - hash is different: {new_digest.hex()} x {original_digest.hex()}"
+            f"File {path_second_file} is not valid - hash is different: {second_digest.hex()} x {initial_digest.hex()}"
         )
         return None
 
     print(
-        f"the files are identical [{initial_file}, {modified_file}]- hash is the same:{original_digest.hex()}"
+        f"the files are identical [{path_first_file}, {path_second_file}]- hash is the same:{initial_digest.hex()}"
     )
     return None
 
