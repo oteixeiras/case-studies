@@ -3,6 +3,7 @@
 import hashlib
 import json
 import datetime
+from typing import cast
 
 class Block:
     def __init__(self, index: int, data: str, prior_hash='') -> None:
@@ -27,13 +28,13 @@ class StudentBlockChain:
             prior_hash='0'
         )
     
-    def get_last_block(self)-> None:
+    def get_last_block(self)-> Block | None:
         if len(self.chain) == 0:
             return None
         return self.chain[-1]
     
-    def add_block(self, data: str)-> Block:
-        last_block = self.get_last_block()
+    def add_block(self, data: str)-> None:
+        last_block = cast(Block, self.get_last_block())
 
         new_block = Block(
             index=last_block.index + 1,
