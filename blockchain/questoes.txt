@@ -1,0 +1,13 @@
+Author: Bruna Carlette e Fernando de Souza Teixeira
+
+1. O que impede dois blocos de serem minerados simultaneamente?
+    Resposta:
+            Na prática, nada impede totalmente, às vezes dois blocos são minerados quase juntos.
+        A rede blockchain resolve isso escolhendo qual bloco vai ser aceito: geralmente, o que vier primeiro ou o que fizer parte da cadeia mais longa. 
+        O outro bloco fica de fora, e a gente chama ele de “bloco órfão”.
+
+2. Como o hash e o nonce garantem a dificuldade da mineração?
+    Resposta:
+            O nonce é um número que a gente vai trocando até achar um que faça o hash do bloco começar com um monte de zeros (isso é a dificuldade),
+        Quanto mais zeros exigidos, mais difícil é achar o nonce certo, porque só testando um por um.
+        O hash é uma “impressão digital” do bloco, pois qualquer mudança muda tudo.
